@@ -1,0 +1,1870 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Viavii APIs",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "admin@viavii.com"
+        },
+        "license": {
+            "name": "Viavii Licence",
+            "url": "https://viavii.com/"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api"
+        }
+    ],
+    "paths": {
+        "/documentation": {
+            "get": {
+                "description": "Documentation",
+                "responses": {
+                    "default": {
+                        "description": "Welcome page"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Login user",
+                "description": "Login by email, password",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "simon@simon.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "123456789"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "token_string"
+                                        },
+                                        "token_type": {
+                                            "type": "int",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "int",
+                                            "example": "36288000"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Password is not correct"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Register user",
+                "description": "Register user, required fields: first name, last name, email, password, term and condition",
+                "operationId": "authRegister",
+                "requestBody": {
+                    "description": "Pass user register information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password",
+                                    "term"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Simon"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Simon"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "simon@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "123456789"
+                                    },
+                                    "term": {
+                                        "type": "int",
+                                        "format": "",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Register successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "object",
+                                            "example": "Password is not correct"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/auth/me": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get user information",
+                "description": "Get user logged in user information",
+                "operationId": "authMe",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Authenticated"
+                                        },
+                                        "require_login": {
+                                            "type": "int",
+                                            "example": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        },
+                                        "require_login": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    },
+                    {
+                        "ptoken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Update user information",
+                "description": "Update user information like first name, last name, email, phone ... etc",
+                "operationId": "authUser",
+                "requestBody": {
+                    "description": "Pass user update information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Simon"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Test"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "simon@email.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Update Successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "object",
+                                            "example": "Unauthenticated"
+                                        },
+                                        "require_login": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    },
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Log user out",
+                "description": "Log user out",
+                "operationId": "authLogout",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully logged out"
+                                        },
+                                        "require_login": {
+                                            "type": "int",
+                                            "example": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "require_login": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    },
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Refresh",
+                "description": "Refresh bearer token.",
+                "operationId": "authRefresh",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "token_string"
+                                        },
+                                        "token_type": {
+                                            "type": "int",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "int",
+                                            "example": "36288000"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "require_login": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    },
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/auth/change-password": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Change password",
+                "description": "Change password,",
+                "operationId": "authChangePassword",
+                "requestBody": {
+                    "description": "Pass user current and new password",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "current-password",
+                                    "new-password"
+                                ],
+                                "properties": {
+                                    "current-password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "123456789"
+                                    },
+                                    "new-password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "Password12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Password changed successfully !"
+                                        },
+                                        "require_login": {
+                                            "type": "int",
+                                            "example": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "require_login": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    },
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/booking/{code}": {
+            "get": {
+                "tags": [
+                    "booking"
+                ],
+                "summary": "Get booking details",
+                "description": "returns booking details using the booking code",
+                "operationId": "bookingDetails",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Booking code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "220ae2ef2e7661383df1c5a12b12feea"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "booking": {
+                                            "type": "string",
+                                            "example": "Booking details"
+                                        },
+                                        "service": {
+                                            "type": "string",
+                                            "example": "Service details"
+                                        },
+                                        "gateway": {
+                                            "type": "string",
+                                            "example": "Gateway details"
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Booking not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Booking not found!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/booking/{code}/check-status": {
+            "get": {
+                "tags": [
+                    "booking"
+                ],
+                "summary": "Checkout status",
+                "description": "returns checkout status",
+                "operationId": "bookingCheckStatus",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Booking code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "220ae2ef2e7661383df1c5a12b12feea"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "redirect": {
+                                            "type": "string",
+                                            "example": "https://viavii.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Booking not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Booking not found!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/gateways": {
+            "get": {
+                "tags": [
+                    "booking"
+                ],
+                "summary": "Get payment gateways",
+                "description": "return all payment gateways",
+                "operationId": "bookingGateways",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "payfort": {
+                                            "properties": {
+                                                "logo": {
+                                                    "type": "string",
+                                                    "example": "null"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Credit card"
+                                                },
+                                                "desc": {
+                                                    "type": "string",
+                                                    "example": ""
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/booking/{code}/thankyou": {
+            "get": {
+                "tags": [
+                    "booking"
+                ],
+                "summary": "Get thank you page",
+                "description": "returns thank you page",
+                "operationId": "bookingThankyou",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Booking code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "220ae2ef2e7661383df1c5a12b12feea"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/html": {
+                                "example": "Redirect to thank you page"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/locations": {
+            "get": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Locations",
+                "description": "Returns a list of locations 'cities'.",
+                "operationId": "locations",
+                "parameters": [
+                    {
+                        "name": "all",
+                        "in": "query",
+                        "description": "This parameter used to get all the locations",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "all"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "total": {
+                                            "type": "int",
+                                            "example": "67"
+                                        },
+                                        "total_pages": {
+                                            "type": "int",
+                                            "example": "8"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "int",
+                                                        "example": "316"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Wadi Rum"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "https://viavii.com/uploads/0000/608/2021/04/05/4a1b6126-efcf-414a-967a-fdb51ec99792.jpeg"
+                                                    },
+                                                    "content": {
+                                                        "type": "string",
+                                                        "example": "<p>content</p>"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/location/{id}": {
+            "get": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Get location information",
+                "description": "Returns location details",
+                "operationId": "location",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Location id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "14"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "int",
+                                                        "example": "316"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Wadi Rum"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "https://viavii.com/uploads/0000/608/2021/04/05/4a1b6126-efcf-414a-967a-fdb51ec99792.jpeg"
+                                                    },
+                                                    "content": {
+                                                        "type": "string",
+                                                        "example": "<p>content</p>"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/{type}/filters": {
+            "get": {
+                "tags": [
+                    "search"
+                ],
+                "summary": "Filters",
+                "description": "returns an object of search filters which includes Filter Price, Review Score, Category and Attributes",
+                "operationId": "searchFilters",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "The service type name which is always 'experience'",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "experience"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "example": "object of search filters, example: object of categories"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/{type}/detail/{id}": {
+            "get": {
+                "tags": [
+                    "search"
+                ],
+                "summary": "Get service type details",
+                "description": "returns a service type in detail based on its id",
+                "operationId": "searchDetail",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "The service type name which is always 'experience'",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "experience"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The service type id i.e. id of an experience",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "15"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "example": "Object containing service type details"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/{type}/availability/{id}": {
+            "get": {
+                "tags": [
+                    "search"
+                ],
+                "summary": "Check availability",
+                "description": "Check availability of service type based on service type id",
+                "operationId": "searchAvailability",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "The service type name which is always 'experience'",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "experience"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The service type id i.e. id of an experience",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "15"
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "start date format: dd-mm-yyyy",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "20-10-2021"
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "end date format: dd-mm-yyyy",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "31-10-2021"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "example": "Object containing service type availability"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/{type}/search-es": {
+            "get": {
+                "tags": [
+                    "search"
+                ],
+                "summary": "Advanced Search",
+                "description": "returns an object based on the service type",
+                "operationId": "searchEsType",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "The service type name which is always 'experience'",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "experience"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "This is used to filter the search based on the keyword. Keyword can be city, country, activity or any word.",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "amman"
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "This is used to filter the search based on the category. The category can be fetched from the search section filters endpoint",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "outdoorsy"
+                    },
+                    {
+                        "name": "attribute",
+                        "in": "query",
+                        "description": "This is used to filter the search based on the attribute. The attribute can be fetched from the search section filters endpoint",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "with locals"
+                    },
+                    {
+                        "name": "lang",
+                        "in": "query",
+                        "description": "This is used to choose the language of the content. Use value 'ar' for arabic. For english leave it empty",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "total": {
+                                            "type": "int",
+                                            "example": "839"
+                                        },
+                                        "total_pages": {
+                                            "type": "int",
+                                            "example": "94"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "example": "Service type list and their details"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/experience/search": {
+            "get": {
+                "tags": [
+                    "search"
+                ],
+                "summary": "Advanced Search",
+                "description": "returns an object based on the service type",
+                "operationId": "searchEsType",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "total": {
+                                            "type": "int",
+                                            "example": "839"
+                                        },
+                                        "total_pages": {
+                                            "type": "int",
+                                            "example": "94"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "example": "Service type list and their details"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/user/booking-history": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get booking history",
+                "description": "Get user boooking history",
+                "operationId": "userBookingHistory",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "example": "Booking history data"
+                                            }
+                                        },
+                                        "total": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "max_pages": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "require_login": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    },
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/booking/{code}/checkout": {
+            "get": {
+                "tags": [
+                    "booking"
+                ],
+                "summary": "Get checkout page",
+                "description": "returns checkout page based on booking code",
+                "operationId": "bookingCheckout",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Booking code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "220ae2ef2e7661383df1c5a12b12feea"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/html": {
+                                "example": "<!DOCTYPE html>"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Page doesnt exist"
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/booking/doCheckout": {
+            "post": {
+                "tags": [
+                    "booking"
+                ],
+                "summary": "Do checkout",
+                "description": "Do checkout process",
+                "operationId": "bookingDoCheckout",
+                "requestBody": {
+                    "description": "pass booking information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "booking",
+                                    "user"
+                                ],
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "220ae2ef2e7661383df1c5a12b12feea"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Michael"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Jordan"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "michael@google.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+962795044646"
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": "JO"
+                                    },
+                                    "term_conditions": {
+                                        "type": "string",
+                                        "example": "on"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "url": {
+                                            "type": "string",
+                                            "example": "https://viavii.com/user/booking/765f9b2347cc5de4b64fa56fd6c5e14b/api/invoice?api_invoice_token=95e6834d0a3d99e9ea8811855ae9229d"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Booking not found!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/booking/cancel/{gateway}": {
+            "get": {
+                "tags": [
+                    "booking"
+                ],
+                "summary": "Cancel booking",
+                "description": "This api is used to cancel booking. Booking code needs to be included as a parameter in the URL",
+                "operationId": "bookingCancel",
+                "parameters": [
+                    {
+                        "name": "gateway",
+                        "in": "path",
+                        "description": "Gateway type",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "offline_payment"
+                    },
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "Booking code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Booking has been cancelled."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Payment gateway not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Payment gateway not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/booking/addToCart": {
+            "post": {
+                "tags": [
+                    "booking"
+                ],
+                "summary": "Add to cart",
+                "description": "returns booking information",
+                "operationId": "bookingAddtocart",
+                "requestBody": {
+                    "description": "Pass service type information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "service_id",
+                                    "service_type"
+                                ],
+                                "properties": {
+                                    "service_id": {
+                                        "type": "int",
+                                        "example": "11"
+                                    },
+                                    "service_type": {
+                                        "type": "string",
+                                        "example": "experience"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "example": "2021-10-21"
+                                    },
+                                    "time_slot": {
+                                        "type": "string",
+                                        "example": "10:00:00"
+                                    },
+                                    "person_types": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            {
+                                                "name": "1 - 5 Tickets",
+                                                "number": "0",
+                                                "desc": "No Description",
+                                                "name_ar": "من ١ الى ٥ تذكرة",
+                                                "desc_ar": null,
+                                                "min": "1",
+                                                "max": "5",
+                                                "price": "25.0",
+                                                "per": "person"
+                                            },
+                                            {
+                                                "name": "6 - 10 Tickets",
+                                                "number": "6",
+                                                "desc": "No Description",
+                                                "name_ar": "من ٦ الى ١٠ تذكرة",
+                                                "desc_ar": null,
+                                                "min": "6",
+                                                "max": "10",
+                                                "price": "12.0",
+                                                "per": "person"
+                                            },
+                                            {
+                                                "name": "11 - 15 Tickets",
+                                                "number": "0",
+                                                "desc": "No Description",
+                                                "name_ar": "من ١١ الى ١٥ تذكرة",
+                                                "desc_ar": null,
+                                                "min": "11",
+                                                "max": "15",
+                                                "price": "9.0",
+                                                "per": "person"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "url": {
+                                            "type": "string",
+                                            "example": "https://viavii.com/booking/ccd0544dc3e648a2cf1d3950aa8582ff/checkout"
+                                        },
+                                        "booking_code": {
+                                            "type": "string",
+                                            "example": "ccd0544dc3e648a2cf1d3950aa8582ff"
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": ""
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You have to login in to do this"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    },
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        },
+        "/booking/addEnquiry": {
+            "post": {
+                "tags": [
+                    "booking"
+                ],
+                "summary": "Add enquiry",
+                "description": "returns enquiry message",
+                "operationId": "booking",
+                "requestBody": {
+                    "description": "Pass service type information and enquirer information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "service_id",
+                                    "service_type",
+                                    "enquiry_name",
+                                    "enquiry_email"
+                                ],
+                                "properties": {
+                                    "service_id": {
+                                        "type": "int",
+                                        "example": "3017"
+                                    },
+                                    "service_type": {
+                                        "type": "string",
+                                        "example": "experience"
+                                    },
+                                    "enquiry_name": {
+                                        "type": "string",
+                                        "example": "Michael Jordan"
+                                    },
+                                    "enquiry_email": {
+                                        "type": "string",
+                                        "example": "michael.jordan@google.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Thank you for contacting us! We will be in contact shortly."
+                                        },
+                                        "status": {
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "int",
+                                            "example": "0"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You have to login in to do this"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    },
+                    {
+                        "ptoken": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            },
+            "ptoken": {
+                "type": "apiKey",
+                "name": "ptoken",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
