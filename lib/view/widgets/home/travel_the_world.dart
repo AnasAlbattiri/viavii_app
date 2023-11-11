@@ -134,7 +134,7 @@ class TravelTheWorld extends StatelessWidget {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(12),
                             onTap: () {
-                              Get.toNamed('/resin_epoxy_art_details');
+                              Get.toNamed('/experience_details');
                             },
                             child: Stack(
                               children: [

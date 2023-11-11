@@ -245,39 +245,39 @@ class UserExperiences extends StatelessWidget {
                               letterSpacing: -0.04,
                             ),
                           ),
-                          Text(
-                            '\$200',
-                            style: TextStyle(
-                              color: Color(0xffACACAC).withOpacity(0.8),
-                              fontFamily: 'Circular',
-                              fontSize: 12,
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                          ),
+                          // Text(
+                          //   '\$200',
+                          //   style: TextStyle(
+                          //     color: Color(0xffACACAC).withOpacity(0.8),
+                          //     fontFamily: 'Circular',
+                          //     fontSize: 12,
+                          //     decoration: TextDecoration.lineThrough,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 5,),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 6,),
-                      child: Container(
-                        width: 85,
-                        height: 16,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(61, 195, 49, 0.1),
-                          borderRadius: BorderRadius.circular(134),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'You’re saving \$40',
-                            style: TextStyle(
-                                color: Color(0xff2B9122),
-                                fontSize: 8.5,
-                                fontFamily: 'Circular'),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // SizedBox(height: 5,),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 6,),
+                    //   child: Container(
+                    //     width: 85,
+                    //     height: 16,
+                    //     decoration: BoxDecoration(
+                    //       color: Color.fromRGBO(61, 195, 49, 0.1),
+                    //       borderRadius: BorderRadius.circular(134),
+                    //     ),
+                    //     child: Center(
+                    //       child: Text(
+                    //         'You’re saving \$40',
+                    //         style: TextStyle(
+                    //             color: Color(0xff2B9122),
+                    //             fontSize: 8.5,
+                    //             fontFamily: 'Circular'),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

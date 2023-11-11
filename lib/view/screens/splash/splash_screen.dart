@@ -16,9 +16,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  FirebaseAuth auth = FirebaseAuth.instance;
   String? finalEmail;
-  // String? finalRegisterEmail;
 
   @override
   void initState() {
@@ -27,11 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
         Get.offNamed(finalEmail == null ? '/welcome' : '/main');
       });
     });
-    // getRegisterValidationData().whenComplete(() async {
-    //   Future.delayed(Duration(seconds: 2,)).then((value) {
-    //     Get.offNamed(finalRegisterEmail == null ? '/welcome' : '/main');
-    //   });
-    // });
     super.initState();
   }
 
@@ -44,15 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
       print(finalEmail);
   }
 
-  // Future getRegisterValidationData() async {
-  //   final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   var obtainedRegisterEmail = sharedPreferences.getString('register');
-  //   setState(() {
-  //     finalRegisterEmail = obtainedRegisterEmail;
-  //   });
-  //   print(finalRegisterEmail);
-  //
-  // }
 
   @override
   Widget build(BuildContext context) {

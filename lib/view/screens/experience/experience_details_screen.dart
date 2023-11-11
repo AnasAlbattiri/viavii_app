@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:viavii_app/data/model/search/search_es_model.dart';
 import 'package:viavii_app/utils/colors.dart';
+import '../../../logic/controller/search_controller.dart';
+import '../../widgets/art/review.dart';
+import '../../widgets/experience/experience_details_image.dart';
 
-import '../widgets/art/review.dart';
+class ExperienceDetailsScreen extends StatefulWidget {
+  ExperienceDetailsScreen({
+    Key? key,
+    required this.datum,
+  }) : super(key: key);
 
-class ResinEpoxyArtDetailsScreen extends StatelessWidget {
-  const ResinEpoxyArtDetailsScreen({Key? key}) : super(key: key);
+  final Datum datum;
+  final searchController = Get.put(MySearchController());
+
+  @override
+  State<ExperienceDetailsScreen> createState() =>
+      _ExperienceDetailsScreenState();
+}
+
+class _ExperienceDetailsScreenState extends State<ExperienceDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +44,17 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_sharp,
+                        color: Colors.black,
+                      ),
+                    ),
                     const SizedBox(
-                      height: 60,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,12 +122,15 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          const Text(
-                            'Resin Epoxy Art',
-                            style: TextStyle(
-                              fontFamily: 'Circular',
-                              fontSize: 20,
-                              color: Colors.black,
+                          Expanded(
+                            child: Text(
+                              widget.datum.title,
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontFamily: 'Circular',
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -160,9 +188,9 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
-                              ' \$40',
+                              ' \$${widget.datum.price}',
                               style: TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 20,
@@ -172,12 +200,15 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                             SizedBox(
                               width: 6,
                             ),
-                            Text(
-                              'Per Session',
-                              style: TextStyle(
-                                fontFamily: 'Circular',
-                                fontSize: 18,
-                                color: Color(0xff979797),
+                            Expanded(
+                              child: Text(
+                                'Per Session',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontFamily: 'Circular',
+                                  fontSize: 18,
+                                  color: Color(0xff979797),
+                                ),
                               ),
                             ),
                           ],
@@ -187,21 +218,8 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 18),
-                      child: Container(
-                        width: 375,
-                        height: 251,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(17),
-                          image: const DecorationImage(
-                            image: AssetImage(
-                              'assets/images/expoxy_art.png',
-                            ),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                    ExperienceDetailsImage(
+                      imageUrl: widget.datum.image,
                     ),
                   ],
                 ),
@@ -216,7 +234,7 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
-                      children: const [
+                      children: [
                         Icon(
                           Icons.map_outlined,
                           color: Colors.grey,
@@ -225,11 +243,14 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                         SizedBox(
                           width: 12,
                         ),
-                        Text(
-                          'Amman, Jordan',
-                          style: TextStyle(
-                            fontFamily: 'Circular',
-                            fontSize: 14,
+                        Expanded(
+                          child: Text(
+                            widget.datum.address,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontFamily: 'Circular',
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ],
@@ -238,7 +259,7 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                       height: 8,
                     ),
                     Row(
-                      children: const [
+                      children: [
                         Icon(
                           Icons.access_time_filled_rounded,
                           color: Colors.grey,
@@ -248,7 +269,7 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                           width: 12,
                         ),
                         Text(
-                          '20 minutes',
+                          widget.datum.duration,
                           style: TextStyle(
                             fontFamily: 'Circular',
                             fontSize: 14,
@@ -354,11 +375,14 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                           Icons.directions_bus_sharp,
                           color: Color(0xff979797),
                         ),
-                        Text(
-                          ' Transportation Included',
-                          style: TextStyle(
-                            fontFamily: 'Circular',
-                            fontSize: 14,
+                        Expanded(
+                          child: Text(
+                            ' Transportation Included',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontFamily: 'Circular',
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                       ],
@@ -404,7 +428,7 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 18),
                 child: Text(
-                  'More about “Experience Name”',
+                  'More about "${widget.datum.title}"',
                   style: TextStyle(
                     fontFamily: 'Circular',
                     fontSize: 16,
@@ -464,28 +488,30 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                     const SizedBox(
                       width: 80,
                     ),
-                    Container(
-                      width: 115,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: mainColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromRGBO(255, 122, 0, 0.4),
-                            blurRadius: 2,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                          child: Text(
-                        'Add Review',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Circular',
+                    Flexible(
+                      child: Container(
+                        width: 105,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: mainColor,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(255, 122, 0, 0.4),
+                              blurRadius: 2,
+                              spreadRadius: 2,
+                            ),
+                          ],
                         ),
-                      )),
+                        child: Center(
+                            child: Text(
+                          'Add Review',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Circular',
+                          ),
+                        )),
+                      ),
                     ),
                     SizedBox(
                       height: 24,
@@ -520,6 +546,7 @@ class ResinEpoxyArtDetailsScreen extends StatelessWidget {
                 travellerReview:
                     'Good value for the money, even though location is not exactly great, all the services were provided, room was very clean and the pool was wonderful as well',
               ),
+              SizedBox(height: MediaQuery.of(context).padding.bottom + 100),
             ],
           ),
         ),

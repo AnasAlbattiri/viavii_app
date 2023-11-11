@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../utils/colors.dart';
 
 class Review extends StatelessWidget {
-  const Review(
-      {Key? key,
-      required this.travellerName,
-      required this.bookedDate,
-      required this.travellerReview, required this.travellerImage})
-      : super(key: key);
+  const Review({
+    Key? key,
+    required this.travellerName,
+    required this.bookedDate,
+    required this.travellerReview,
+    required this.travellerImage,
+  }) : super(key: key);
 
   final String travellerName;
   final String bookedDate;
@@ -37,7 +38,7 @@ class Review extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage(
-                     travellerImage,
+                      travellerImage,
                     ),
                   ),
                 ),

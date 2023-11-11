@@ -7,8 +7,4 @@ String validationName = r'^[a-z A-Z]+$';
 String baseUrl = "https://dev2.viavii.com/api";
 String register = "auth/register";
 String login = "auth/login";
-var headers = {
-  "Content-Type": "application/json",
-  "ptoken": "bUuXIU8ZnBhLRnXU4X5qqBQRbd1Nof"
-};
 

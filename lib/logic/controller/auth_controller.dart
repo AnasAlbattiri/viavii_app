@@ -162,6 +162,7 @@ class AuthController extends GetxController {
     };
 
     final response = await post(Uri.parse(url), headers: headers);
+    print('Response Body: ${response.body}');
     Map<String, dynamic> responseBody = jsonDecode(response.body);
     return responseBody;
   }
@@ -263,7 +264,6 @@ class AuthController extends GetxController {
     Map<String, String> headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessToken', // Use the accessToken parameter
-      // 'X-CSRF-TOKEN': 'xT6Pr5QAjqAxqMJVxpvRdBFaZVhgtC9BxNgQ18nu',
       'ptoken': 'bUuXIU8ZnBhLRnXU4X5qqBQRbd1Nof'
     };
 

@@ -196,7 +196,7 @@ class ChangePasswordScreen extends StatelessWidget {
                           ),
                         ),
                         child: TextUtils(
-                          text: 'SEND',
+                          text: 'SAVE',
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,

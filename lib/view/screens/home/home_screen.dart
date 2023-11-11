@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:viavii_app/view/widgets/else/text_utils.dart';
 import 'package:viavii_app/view/widgets/home/explore_more.dart';
 import 'package:viavii_app/view/widgets/home/featured_items.dart';
 import 'package:viavii_app/view/widgets/home/fly_man.dart';
@@ -14,8 +12,8 @@ import '../../../utils/constants.dart';
 import '../../widgets/home/empowering_hosts.dart';
 import '../../widgets/home/experience_text.dart';
 import '../../widgets/home/explore_by_category.dart';
+import '../../widgets/home/home_search_form_text.dart';
 import '../../widgets/home/masked_image.dart';
-import '../../widgets/home/our_parents.dart';
 import '../../widgets/home/popular_destinations.dart';
 import '../../widgets/home/search_form_text.dart';
 
@@ -103,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SearchFormText(hintText: 'Where do you want to go?'),
+                            HomeSearchFormText(hintText: 'Where do you want to go?',),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -404,6 +402,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 56,
               ),
+              // Problem
               FlyMan(),
               const SizedBox(
                 height: 30,

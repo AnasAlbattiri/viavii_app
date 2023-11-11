@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:viavii_app/logic/controller/search_controller.dart';
 import 'package:viavii_app/view/widgets/experience/experience_items.dart';
-import '../widgets/home/search_form_text.dart';
+import '../../widgets/home/search_form_text.dart';
 
 class ExperienceScreen extends StatelessWidget {
-  const ExperienceScreen({Key? key}) : super(key: key);
+  ExperienceScreen({Key? key}) : super(key: key);
+
+  final searchController = Get.put(MySearchController());
 
   @override
   Widget build(BuildContext context) {
@@ -62,41 +66,30 @@ class ExperienceScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Center(
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Experience a new ways to',
-                            style: TextStyle(
-                              fontFamily: 'Circular',
-                              fontSize: 30,
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Center(
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Experience a new ways to live from your comfort of your home! ',
+                              style: TextStyle(
+                                fontFamily: 'Circular',
+                                fontSize: 27,
+                              ),
                             ),
-                          ),
-                          TextSpan(
-                            text: 'live from your comfort of',
-                            style: TextStyle(
-                              fontFamily: 'Circular',
-                              fontSize: 30,
-                            ),
-                          ),
-                          TextSpan(
-                            text: ' your home!',
-                            style: TextStyle(
-                              fontFamily: 'Circular',
-                              fontSize: 29,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(19.0),
-                  child: SearchFormText(hintText: 'Enter keyword here..'),
+                  child: SearchFormText(
+                      hintText: 'Search with name or price',),
                 ),
               ],
             ),
@@ -125,8 +118,8 @@ class ExperienceScreen extends StatelessWidget {
                 onPressed: () {},
                 child: Text(
                   'Price ↑',
-                  style:
-                      TextStyle(color: Color(0xff676767), fontFamily: 'Circular'),
+                  style: TextStyle(
+                      color: Color(0xff676767), fontFamily: 'Circular'),
                 ),
                 style: TextButton.styleFrom(
                   backgroundColor: Color(0xffAAF1D9),
@@ -142,8 +135,8 @@ class ExperienceScreen extends StatelessWidget {
                 onPressed: () {},
                 child: Text(
                   'Price ↓',
-                  style:
-                      TextStyle(color: Color(0xff676767), fontFamily: 'Circular'),
+                  style: TextStyle(
+                      color: Color(0xff676767), fontFamily: 'Circular'),
                 ),
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -158,8 +151,8 @@ class ExperienceScreen extends StatelessWidget {
                 onPressed: () {},
                 child: Text(
                   'Best Reviewed',
-                  style:
-                      TextStyle(color: Color(0xff676767), fontFamily: 'Circular'),
+                  style: TextStyle(
+                      color: Color(0xff676767), fontFamily: 'Circular'),
                 ),
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -172,7 +165,8 @@ class ExperienceScreen extends StatelessWidget {
           const SizedBox(
             height: 13,
           ),
-          ExperienceItems(),
+          ExperienceItems(
+              experiencesDetailsList: searchController.experiencesEsList),
         ],
       ),
     );

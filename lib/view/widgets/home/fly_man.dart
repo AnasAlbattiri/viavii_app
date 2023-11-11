@@ -9,13 +9,13 @@ class FlyMan extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Center(
-            child: Positioned(
-                child: Image.asset(
-                  'assets/images/fly_man.png',
-                  height: 190,
-                  width: 215,
-                ))),
+        Positioned(
+          left: 95,
+            child: Image.asset(
+              'assets/images/fly_man.png',
+              height: 190,
+              width: 215,
+            )),
         Center(
           child: Container(
             height: 350,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../utils/colors.dart';
-import '../widgets/else/text_utils.dart';
+import '../../../utils/colors.dart';
+import '../../widgets/else/text_utils.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
